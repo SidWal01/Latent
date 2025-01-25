@@ -18,40 +18,38 @@ let awaitingUserResponse = false; // Track whether we're waiting for a user resp
 // Fetch the question for each judge using the API
 function fetchJudgeQuestion() {
   const judge = judges[currentJudge];
-  
-  // API request to get the question dynamically based on the introduction
-  fetch('http://localhost:3000/ask-question', {  // This is a route we'll define in our server.js
+
+  fetch('http://localhost:3000/ask-question', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      intro: "My name is Tejas Nangru, i love to play tennis"  // This should be dynamically provided based on the user's intro
+      intro: "My name is Tejas Nangru, I love to play tennis", // Update with dynamic intro if needed
+    }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      judge.question = data.result || "Could not fetch question"; // Default if API fails
+      addMessage(judge.name, judge.question, judge.avatar);
+      awaitingUserResponse = true; // Await user response
     })
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log(data)
-    // Update the judge's question dynamically with the API response
-    judge.question = data.result || "Could not fetch question";  // Default in case API fails
-    addMessage(judge.name, judge.question, judge.avatar);
-    awaitingUserResponse = true; // Await user response
-  })
-  .catch(error => {
-    console.error("Error fetching the question:", error);
-    judge.question = "Error fetching question. Please try again later.";
-    addMessage(judge.name, judge.question, judge.avatar);
-    awaitingUserResponse = true; // Continue even if there's an error
-  });
+    .catch(error => {
+      console.error("Error fetching the question:", error);
+      judge.question = "Error fetching question. Please try again later.";
+      addMessage(judge.name, judge.question, judge.avatar);
+      awaitingUserResponse = true; // Continue even if there's an error
+    });
 }
 
-// Function to add a message to the chat
+// Add a message to the chat
 function addMessage(sender, text, avatar, isUser = false) {
   const message = document.createElement("div");
   message.classList.add("message", isUser ? "user-message" : "judge-message");
 
   const img = document.createElement("img");
-  img.src = isUser ? "your-avatar.png" : avatar; // Use your avatar for user messages
+  img.src = isUser ? "your-avatar.png" : avatar;
   img.alt = `${sender}'s avatar`;
   img.className = "avatar";
 
@@ -59,28 +57,49 @@ function addMessage(sender, text, avatar, isUser = false) {
   cloud.className = "cloud";
   cloud.textContent = text;
 
-  // Append elements based on who sent the message
   if (isUser) {
-    message.appendChild(cloud); // Text first for user
-    message.appendChild(img);  // Then avatar
+    message.appendChild(cloud);
+    message.appendChild(img);
   } else {
-    message.appendChild(img);  // Avatar first for judge
-    message.appendChild(cloud); // Then text
+    message.appendChild(img);
+    message.appendChild(cloud);
   }
 
   chatSection.appendChild(message);
-  chatSection.scrollTop = chatSection.scrollHeight; // Auto-scroll to the bottom
+  chatSection.scrollTop = chatSection.scrollHeight;
 }
 
-// Function to handle the judge's roast after user's response
-function roastJudgeResponse() {
+// Fetch roast for the user's answer
+function fetchJudgeRoast(userAnswer) {
   const judge = judges[currentJudge];
-  addMessage(judge.name, judge.roast, judge.avatar);
-  currentJudge = (currentJudge + 1) % judges.length; // Move to the next judge
-  setTimeout(fetchJudgeQuestion, 1000); // Ask the next judge's question after a short delay
+
+  fetch('http://localhost:3000/get-roast', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      ans: userAnswer,
+    }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      judge.roast = data.result || "Couldn't fetch roast. Try again later.";
+      addMessage(judge.name, judge.roast, judge.avatar);
+      currentJudge = (currentJudge + 1) % judges.length; // Move to next judge
+      setTimeout(fetchJudgeQuestion, 1000); // Fetch next question
+    })
+    .catch(error => {
+      console.error("Error fetching the roast:", error);
+      judge.roast = "Error generating roast. Please try again later.";
+      addMessage(judge.name, judge.roast, judge.avatar);
+      currentJudge = (currentJudge + 1) % judges.length; // Move to next judge
+      setTimeout(fetchJudgeQuestion, 1000); // Fetch next question
+    });
 }
 
-// Handle User Input
+// Handle user input
 sendButton.addEventListener("click", () => {
   const userMessage = userInput.value.trim();
   if (!userMessage) {
@@ -88,17 +107,11 @@ sendButton.addEventListener("click", () => {
     return;
   }
 
-  // If we're awaiting the user's response
   if (awaitingUserResponse) {
-    // Add the user's message
     addMessage("You", userMessage, "user.jpg", true);
     awaitingUserResponse = false; // Stop awaiting response
-
-    // Add the judge's roast after a delay
-    setTimeout(roastJudgeResponse, 1000);
-
-    // Clear input field
-    userInput.value = "";
+    fetchJudgeRoast(userMessage); // Fetch the roast
+    userInput.value = ""; // Clear input
   } else {
     alert("Wait for the judge's question!");
   }
