@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Virtual Latent</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Audio-to-Text Rendering -->
+    <div class="audio-text" id="audio-text">
+      <h3>Audio-to-Text Output:</h3>
+      <p id="audio-output">Your converted audio text will appear here...</p>
+    </div>
+
+    <!-- Chat Section -->
+    <div class="chat-section" id="chat-section">
+      <!-- Messages will appear dynamically here -->
+    </div>
+
+    <!-- Input Section -->
+    <div class="input-section">
+      <textarea id="user-input" placeholder="Type your answer here..."></textarea>
+      <button id="send-button">Send</button>
+    </div>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

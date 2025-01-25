@@ -1,0 +1,120 @@
+/* General Styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  width: 90%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Audio-to-Text Section */
+.audio-text {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.audio-text h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.audio-text p {
+  font-size: 1rem;
+  color: #ccc;
+}
+
+/* Chat Section */
+.chat-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.judge-message {
+  justify-content: flex-start;
+}
+
+.user-message {
+  justify-content: flex-end;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.cloud {
+  position: relative;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  padding: 10px 15px;
+  border-radius: 15px;
+  max-width: 300px;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.cloud::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 20px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 10px 0 0;
+  border-color: rgba(255, 255, 255, 0.9) transparent transparent transparent;
+}
+
+/* Input Section */
+.input-section {
+  display: flex;
+  gap: 10px;
+}
+
+#user-input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+#send-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(45deg, #ff4e00, #ec9f05);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#send-button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(45deg, #ec9f05, #ff4e00);
+}

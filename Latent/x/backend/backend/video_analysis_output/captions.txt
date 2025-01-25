@@ -1,0 +1,9 @@
+Frame 0: there is a woman in a purple shirt and white pants standing in front of a blackboard
+Frame 50: there is a little girl in a purple jacket and white pants
+Frame 100: there is a mannequin dressed in a purple coat and white pants standing in front of a gray wall
+Frame 150: there is a man in a purple jacket and white pants taking a picture with a camera
+Frame 200: there is a woman in a purple jacket and white pants doing a dance
+Frame 250: there is a woman in a purple jacket and white pants standing in front of a gray wall
+Frame 300: there is a woman in a purple jacket and white pants doing a dance
+Frame 350: there is a woman in a purple shirt and white pants doing a dance
+Frame 400: there is a woman in a purple jacket and white pants on a skateboard

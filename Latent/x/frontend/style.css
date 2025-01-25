@@ -1,0 +1,101 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .container {
+    text-align: center;
+    width: 80%;
+    max-width: 600px;
+  }
+  
+  /* Glowing Headline */
+  .headline {
+    font-size: 3rem;
+    font-weight: bold;
+    color: transparent;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: glow 1.5s infinite;
+  }
+  
+  @keyframes glow {
+    0%, 100% {
+      text-shadow: 0 0 10px #6a11cb, 0 0 20px #6a11cb, 0 0 30px #2575fc;
+    }
+    50% {
+      text-shadow: 0 0 20px #6a11cb, 0 0 40px #2575fc, 0 0 60px #2575fc;
+    }
+  }
+  
+  /* Upload Section */
+  .upload-section {
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .input-group {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  .input-group label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 5px;
+  }
+  
+  .input-group input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .input-group input[type="file"]::-webkit-file-upload-button {
+    padding: 8px 15px;
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .input-group p {
+    font-size: 0.9rem;
+    color: #aaa;
+  }
+  
+  /* Submit Button */
+  #submit-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(45deg, #ff4e00, #ec9f05);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  #submit-button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(45deg, #ec9f05, #ff4e00);
+  }
+  
